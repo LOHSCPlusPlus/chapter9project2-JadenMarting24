@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-// this creates everything that will be stored in CarType
+// this creates everything that will be stored in struct BirdType
 struct BirdType{
   enum {MAX_CHAR_LEN = 100};
   char birdName[MAX_CHAR_LEN];
@@ -13,7 +13,7 @@ struct BirdType{
   BirdType();
     
 };
-// this defines everything in CarType
+// this defines everything in default constructor BirdType
 BirdType::BirdType() {
   
   for(int index = 0; index < MAX_CHAR_LEN; index++){
@@ -26,7 +26,7 @@ BirdType::BirdType() {
 
 }
 const int MAX_BIRDS = 500;
-// This function is connected with the readCars function to allow the program to read the description of the car
+// This function is connected with the readCars function to allow the program to read the description of the birds
 BirdType readBirdData(ifstream &inFile){
     BirdType bird;
    
@@ -50,7 +50,7 @@ BirdType readBirdData(ifstream &inFile){
   
     return bird;
 }
-// this function reads the cars in the file and stores it into the cars[] array
+// this function reads the cars in the birds.txt file and stores it into the birds[] array
 int readBirds(BirdType birds[]) {
     ifstream birdFile("birds.txt");
     int numBirds = 0;
@@ -60,6 +60,7 @@ int readBirds(BirdType birds[]) {
     }
     return numBirds;
 }
+//  this reads birds in the save.txt file 
 int readBirdies(BirdType birds[]) {
     ifstream birdFile("save.txt");
     int numBirds = 0;
@@ -69,7 +70,7 @@ int readBirdies(BirdType birds[]) {
     }
     return numBirds;
 }
-// this function gets the list of cars already stored into the cars[] array and shows the information to the user.
+// this function gets the list of birds already stored into the birds[] array and shows the information to the user.
 void printBirds(BirdType birds[], int numBirds){
   
     for(int index = 0; index < numBirds; index++){
@@ -87,7 +88,7 @@ void printBirds(BirdType birds[], int numBirds){
       
     }
 }
-// this function prints the car based off of what the user entered the Origin as. the cars[index].Origin allows us to do this because it compares what the user entered with what is stored.
+// this function prints the bird based off of what the user entered the Color as. the birds[index].Color allows us to do this because it compares what the user entered with what is stored.
 void printBirdsByColor(BirdType birds[]){
   string comparison = "";
   cout << "Type a requested region of color: ";
@@ -134,7 +135,7 @@ int readInt(const char prompt[]){
     }
     return temp;
 }
-
+// replaces the bird chosen with the index above the current index.
 void removeBird(BirdType birds[], int numBirds){
   int temp = readInt("Enter index to remove");
   for(int index = temp; index < numBirds; index++){
@@ -142,10 +143,11 @@ void removeBird(BirdType birds[], int numBirds){
 
     }
 }
-
+// refreshes bird data from save.txt
 void reloadData(BirdType birds[]){
   readBirdies(birds);
 }
+// file outs everything in BirdType birds
 void printExample(ostream &out, BirdType birds){
     out << birds.birdName << ";";
     out << birds.sciName << ";";
@@ -153,12 +155,14 @@ void printExample(ostream &out, BirdType birds){
     out << birds.color << ";";
     out << birds.diet << endl;
 }
+// saves everything into the save.txt file using printExample to print to the file
 void saveData(BirdType birds[], int numBirds){
   ofstream outFile("save.txt");
     for (int index = 0; index < numBirds; index++) {
       printExample(outFile, birds[index]);
     }
 }
+// adds a bird to the birds[] array by using cin.gets because they are all char arrays
 int addBird(BirdType birds[], int numBirds){
   
     
